@@ -2,6 +2,7 @@
 #include<windows.h>
 double power(double num, int index);
 double outcome = 1.0;
+
 int main(void)
 {
 	int index;
