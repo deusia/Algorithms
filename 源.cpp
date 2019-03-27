@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<windows.h>
 #include<stdlib.h>
 #define MaxSize 100
 #define INCRETMENT 10
@@ -10,31 +11,43 @@ typedef struct book
 	int listsize;
 }SqList;
 int SqListInit(SqList*);
-int SqListInsert(SqList*,int,ElemType);
-int SqListEmpty(SqList*)?///////////////
-int SqListDelete(SqList*, int, ElemType*);
+int SqListInsert(SqList*, int, ElemType);
+void SqListEmpty(SqList*);
+void SqListDelete(SqList*, int, ElemType*);
 int SqListLocate(SqList*, ElemType);
-int SqListPrint(SqList*);
+void SqListPrint(SqList*);
 int main(void)
 {
+	int e;
 	SqList* L;
 	SqList p;
-	L=&p;
-	if (SqListInit(L))
-		printf("%d", L->length);
-	else
-		printf("Space allocation failed.");
+	L = &p;
+	SqListInit(L);
+	printf("length=%d\nlistsize=%d\n", L->length, L->listsize);
+	for (int i = 0; i < 5; i++)
+	{
+		printf("Enter NO.%d number:",i+1);
+		scanf_s("%d", &e);
+		SqListInsert(L, i + 1, e);
+	}
+	for (int i = 0; i < 5; i++)
+		printf("%5d", p.Elem[i]);
+	
+	
+	system("pause");
+	return 0;
 
 }
 int SqListInit(SqList* L)
 {
 	L->Elem = (ElemType*)malloc(MaxSize*sizeof(ElemType));
-	if (!L)        //  check the return value is not
-		return 0;  //     NULL  !!!!!!!!!!
+	if (!L->Elem)        //  check the return value is not
+		return 0;       //     NULL  !!!!!!!!!!
 
-		L->length = 0;
-		L->listsize=MaxSize;
-		return 1;
+	L->length = 0;
+	L->listsize = MaxSize;
+	return 1;
+	
 
 }
 //the function is designed to initialize the struct.
@@ -54,22 +67,20 @@ int SqListInsert(SqList* L, int i, ElemType e)
 		L->listsize += INCRETMENT;
 	}
 
-	for (j = L->length - 1; j >= i-1; j--)
+	for (j = L->length - 1; j >= i - 1; j--)
 		L->Elem[j] = L->Elem[j + 1];
 	L->Elem[i - 1] = e;
 	++L->length;
 	return 1;
 }
-int SqListDelete(SqList* L, int i, ElemType *e)
+void SqListDelete(SqList* L, int i, ElemType *e)
 {
 	int j;
-	if (i<1 || i>L->length + 1)
-		return 0;
 	*e = L->Elem[i - 1];
 	for (j = i - 1; i < L->length; i++)
-		L->Elem[i] = L->Elem[i+1];
+		L->Elem[i] = L->Elem[i + 1];
 	--L->length;
-	return ;
+	
 }
 int SqListLocate(SqList* L, ElemType e)
 {
@@ -81,12 +92,9 @@ int SqListLocate(SqList* L, ElemType e)
 	else
 		return 0;
 }
-int SqListPrint(SqList* L)
+void SqListPrint(SqList* L)
 {
-	if (!L)
-		return 0;              //Unable to find the SqList
 	int i;
-	for (i = 0; i < L->length ; i++)
+	for (i = 0; i < L->length; i++)
 		printf("%5d", L->Elem[i]);
-	return 1;
 }
