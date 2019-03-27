@@ -68,7 +68,7 @@ int SqListInsert(SqList* L, int i, ElemType e)
 	}
 
 	for (j = L->length - 1; j >= i - 1; j--)
-		L->Elem[j] = L->Elem[j + 1];
+		L->Elem[j+1] = L->Elem[j ];
 	L->Elem[i - 1] = e;
 	++L->length;
 	return 1;
