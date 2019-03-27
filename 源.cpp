@@ -28,12 +28,12 @@ int main(void)
 }
 int SqListInit(SqList* L)
 {
-	L->Elem = (ElemType*)malloc(sizeof(ElemType));
+	L->Elem = (ElemType*)malloc(MaxSize*sizeof(ElemType));
 	if (!L)        //  check the return value is not
 		return 0;  //     NULL  !!!!!!!!!!
 
 		L->length = 0;
-		L->listsize;
+		L->listsize=MaxSize;
 		return 1;
 
 }
