@@ -13,12 +13,15 @@ typedef struct book
 int SqListInit(SqList*);
 int SqListInsert(SqList*, int, ElemType);
 void SqListEmpty(SqList*);
-void SqListDelete(SqList*, int, ElemType*);
+int SqListDelete(SqList*, int, ElemType*);
 int SqListLocate(SqList*, ElemType);
 void SqListPrint(SqList*);
+void DestroyList(SqList *L);
+int ListEmpty(SqList *L);
 int main(void)
 {
 	int e;
+	int pos;
 	SqList* L;
 	SqList p;
 	L = &p;
@@ -30,10 +33,16 @@ int main(void)
 		scanf_s("%d", &e);
 		SqListInsert(L, i + 1, e);
 	}
-	for (int i = 0; i < 5; i++)
-		printf("%5d", p.Elem[i]);
-	
-	
+	SqListPrint(L);
+	printf("\nAdd in a new number and its position:");
+	scanf_s("%d %d", &e,&pos);
+	SqListInsert(L, pos, e);
+	SqListPrint(L);
+	printf("\nEnter the position of number you want to delete :");
+	scanf_s("%d ", &pos);
+	SqListDelete(L, pos, &e);
+	SqListPrint(L);
+	printf("\nthe deleted number is %d", e);
 	system("pause");
 	return 0;
 
@@ -68,19 +77,22 @@ int SqListInsert(SqList* L, int i, ElemType e)
 	}
 
 	for (j = L->length - 1; j >= i - 1; j--)
-		L->Elem[j+1] = L->Elem[j ];
+		L->Elem[j+1] = L->Elem[j];
 	L->Elem[i - 1] = e;
 	++L->length;
 	return 1;
 }
-void SqListDelete(SqList* L, int i, ElemType *e)
+int SqListDelete(SqList* L, int i, ElemType *e)
 {
 	int j;
+	if (i<1 || i>L->length )
+		return 0;
+
 	*e = L->Elem[i - 1];
-	for (j = i - 1; i < L->length; i++)
-		L->Elem[i] = L->Elem[i + 1];
+	for (j = i - 1; i < L->length-1; j++)
+		L->Elem[j] = L->Elem[j + 1];
 	--L->length;
-	
+	return 1;
 }
 int SqListLocate(SqList* L, ElemType e)
 {
@@ -98,3 +110,12 @@ void SqListPrint(SqList* L)
 	for (i = 0; i < L->length; i++)
 		printf("%5d", L->Elem[i]);
 }
+void DestroyList(SqList *L)
+{
+	free(L);
+}
+int ListEmpty(SqList *L)
+{
+	return(L->length == 0);
+}
+
