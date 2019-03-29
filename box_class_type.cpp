@@ -1,6 +1,5 @@
 #include<iostream>
 #include<cstdio>
-#define PI 3.14
 using namespace std;
 class Box
 {
