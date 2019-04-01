@@ -58,6 +58,21 @@ void DelList(LNode* L,ElemType e)
 		else p=p->next;	
 	}
 }
+void InvertList(LNode* L)
+{
+	LNode* p;
+	LNode* q;
+	p=L->next;
+	q=p->next;
+	while(!p)
+	{
+		p->next=L->next;
+		L->next=p;
+		p=q;
+		if(!q)
+			q=q->next;
+	}
+}
 
 int main(void)
 {
