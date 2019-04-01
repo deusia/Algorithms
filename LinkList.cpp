@@ -63,7 +63,7 @@ void MergeList(LNode*La,LNode* Lb)
 	LNode* pa=La->next;
 	LNode* pb=Lb->next;
 	LNode* pc=La;
-	while(pa!=NULL&&pn!=NULL)
+	while(pa!=NULL&&pb!=NULL)
 	{
 		if(pa->data<=pb->data)
 		{
@@ -81,8 +81,6 @@ void MergeList(LNode*La,LNode* Lb)
 		pc->next=(pa!=NULL?pa:pb);
 		free(Lb);
 }	
-		
-
 void InvertList(LNode* L)
 {
 	LNode* p;
@@ -90,12 +88,12 @@ void InvertList(LNode* L)
 	p=L->next;
 	q=p->next;
 	L->next=NULL;
-	while(!p)
+	while(p)
 	{
 		p->next=L->next;
 		L->next=p;
 		p=q;
-		if(!q)
+		if(q)
 			q=q->next;
 	}
 }
@@ -103,12 +101,21 @@ void InvertList(LNode* L)
 int main(void)
 {
 	LNode* L,*p;
+	LNode* Q;
 	InitList(L);
+	InitList(Q);
+	HeadInsertList(L,112);
 	HeadInsertList(L,81);
 	HeadInsertList(L,79);
 	HeadInsertList(L,34);
-	HeadInsertList(L,112);
+	HeadInsertList(Q,69);
+	HeadInsertList(Q,55);
+	HeadInsertList(Q,29);
+	HeadInsertList(Q,14);
 	DispList(L);
+	DispList(Q);
+	MergeList(L,Q);
+		DispList(L);
 	p=SearchList(L,34);
 		if(p)
 			cout<<"Find it!"<<p->data<<endl;
@@ -116,5 +123,6 @@ int main(void)
 			cout<<"Not find!"<<endl;
 		DelList(L,34);
 		DispList(L);
+		InvertList(L);
+		DispList(L);
 }
-
