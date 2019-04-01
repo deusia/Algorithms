@@ -58,12 +58,38 @@ void DelList(LNode* L,ElemType e)
 		else p=p->next;	
 	}
 }
+void MergeList(LNode*La,LNode* Lb)
+{
+	LNode* pa=La->next;
+	LNode* pb=Lb->next;
+	LNode* pc=La;
+	while(pa!=NULL&&pn!=NULL)
+	{
+		if(pa->data<=pb->data)
+		{
+			pc->next=pa;
+			pc=pa;
+			pa=pa->next;
+		}
+		else
+		{
+			pc->next=pb;
+			pc=pb;
+			pb=pb->next;
+		}
+	}
+		pc->next=(pa!=NULL?pa:pb);
+		free(Lb);
+}	
+		
+
 void InvertList(LNode* L)
 {
 	LNode* p;
 	LNode* q;
 	p=L->next;
 	q=p->next;
+	L->next=NULL;
 	while(!p)
 	{
 		p->next=L->next;
