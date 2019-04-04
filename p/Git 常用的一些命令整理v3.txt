@@ -1,0 +1,71 @@
+git 常用的一些命令整理
+
+基本操作
+pwd 显示当前目录
+cd 切换本地路径
+git config --global user.name "yourName"   配置用户名称
+git config --global user.email "yourEmail@EmailServer.com"   配置用户邮箱
+
+git init 初始化仓库
+git add 添加修改至暂存区 git add .  添加根目录所有文件
+git commit -m "提交至工作区"   将暂存区的改动提交至工作区
+
+git status  查看仓库当前状态
+git diff <文件名> 查看文件改动信息
+git log 查看提交日志（版本号）
+git log --pretty=oneline   美化git log
+
+git reset --hard HEAD^ 返回上一个版本
+git reset --hard <commit-id> 返回指定版本
+git reset HEAD <文件名> 将暂存区的修改撤销
+
+git reflog 查看命令历史，以便确定要回到未来的哪个版本。
+git rm <文件名> 删除工作区的文件（也可以直接在文件夹内删除）
+git checkout -- <文件名> 撤销工作区的修改 ，误删恢复
+git commit -m "确定从版本库中也删除文件"
+
+远程仓库操作
+ssh-keygen -t rsa -C "youremail@example.com" 创建SSH key
+git remote add origin git@server-name:path/repo-name.git 本地仓库关联至远程仓库
+git push -u origin master 第一次推送master分支的所有内容
+git clone git@server-name:path/repo-name.git 从远程克隆仓库至本地
+
+#从远程clone一个项目，虽然远程上该项目是有分支的，但clone下来后发现只有master分支，解决：
+git checkout -b <not_master_branch>  origin/not_master_branch  本地创建一个分支，指向对应的远程分支
+git pull origin <not_master_branch>  将远程的not_master_branch分支pull下来
+git push origin <not_master_branch>  将修改后的not_master_branch分支push到远程的not_master_branch
+
+
+分支操作
+git branch  查看分支
+git branch <分支名>  创建分支
+git checkout <分支名>  切换分支
+git checkout -b <分支名>  创建+切换分支
+git merge <分支名>  合并某分支到当前分支
+git branch -d <分支名>  删除分支
+git branch -D <分支名>  强行删除还未合并的分支
+git push origin :<分支名>  删除远程分支（先在本地删除该分支），原理是把一个空分支push到server上，相当于删除该分支。
+git log --graph  查看分支合并图
+git merge --no-ff -m "merge message"    普通模式合并，能看出合并历史
+git stash   暂时存储分支上未提交的改动，切换至其他分支
+git stash apply  切换回来恢复改动
+git stash drop   删除stash内容
+git stash pop   恢复并删除stash
+
+多人协作
+
+git remote -v  查看远程库信息
+git push origin <分支名>  从本地推送分支，如果推送失败用git pull抓取远程的新提交
+git checkout -b <分支名> origin/<分支名>  在本地创建和远程分支对应的分支，本地和远程分支的名称最好一致
+git branch --set-upstream <分支名> origin/<分支名>  建立本地分支和远程分支的关联
+git pull origin <分支名>   从远程抓取分支，如果有冲突，要先处理冲突
+
+标签管理
+git tag <标签名>   新建一个标签，默认为HEAD，也可以指定一个commit id；
+git tag -a <标签名> -m "blablabla..."   指定标签信息；
+git tag -s <标签名> -m "blablabla..."   用PGP签名标签；
+git tag   查看所有标签。
+git push origin <标签名>   推送一个本地标签；
+git push origin --tags   推送全部未推送过的本地标签；
+git tag -d <标签名>    删除一个本地标签；
+git push origin :refs/tags/<标签名>   删除一个远程标签。
