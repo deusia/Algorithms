@@ -70,7 +70,7 @@ void Insert(ElementType X, List L, Position P)
 	Position Temp;
 
 	Temp = (struct Node*)malloc(sizeof(struct Node));
-	if (Temp == NULL);
+	if (Temp == NULL)
 	return;
 
 	Temp->Element = X;
