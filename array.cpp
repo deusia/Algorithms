@@ -26,6 +26,16 @@ void DispMat(AdjMat g)
 	cout<<endl;
 	}
 }
+int visit[MaxSize];
+void DFS(AdjMat g,int v)
+{
+	int i;
+	visit[v]=1;
+	cout<<v<<"  ";
+	for (i=0;i<g.n;i++)
+		if(!visit[i] && g.arcs[v][i])
+			DFS(g,i);
+}
 int main(void)
 {
 	AdjMat g;
@@ -40,4 +50,8 @@ int main(void)
 	};
 	StoreToMat(vex,arcs,g,5);
 	DispMat(g);
+	memset(visit,0,sizeof(visit));	
+	cout<<"DFS result is:"<<endl;
+	DFS(g,0);
+	cout<<endl;
 }
