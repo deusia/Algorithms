@@ -2,6 +2,14 @@
 const int N = 9;
 using namespace std;
 
+//用于交换数组的元素
+void exch(int *a, int i, int j) {
+    int temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+
+}
+
 //分组，选取数组第一个元素作为基准值，把大于其的放在左边，小于其的放在它右边
 int partition(int *a, int lo, int hi) {
     int i = lo;
