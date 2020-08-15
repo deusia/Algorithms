@@ -1,5 +1,0 @@
-﻿  defination.h
-C:\Users\86198\source\repos\Project3\Project3\defination.h(73): warning C4390: “;”: 找到空的受控语句；这是否是有意的?
-  test.c
-C:\Users\86198\source\repos\Project3\Project3\test.c(9): warning C4101: “X”: 未引用的局部变量
-  Project3.vcxproj -> C:\Users\86198\source\repos\Project3\Debug\Project3.exe
